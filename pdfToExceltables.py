@@ -1,6 +1,6 @@
 import pandas as pd
 import pdfplumber
-import xlswriter
+import xlsxwriter
 import os
 
 outputPath = "output"

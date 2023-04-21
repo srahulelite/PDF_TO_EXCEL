@@ -28,6 +28,15 @@ if files:
                         prepared_list.append(row)
 
     if i>=1:
-        df = pd.DataFrame()
+        df = pd.DataFrame(prepared_list)
+        if not os.path.exists(outputPath):
+            os.makedirs(outputPath)
+
+        writer = pd.ExcelWriter('./output/output.xlsx', engine='xlswriter')
+        df.to_excel(writer,sheet_name='MergedTables', index=False,header=False)
+        writer.save()
+        print("Process completed")
+    else:
+        print("No tables found")
 else:
     print("No PDF files selected")

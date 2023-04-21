@@ -17,24 +17,26 @@ if files:
     prepared_list = []
     blank_row = []
     i = 0
+    j = 0
     for file in files:
         with pdfplumber.open(file) as f:
             for page in f.pages:
                 i+=1
                 print("-- Working on page: ", i)
                 for table in page.extract_tables():
+                    j+=1
                     #prepared_list.append(blank_row)
                     for row in table:
                         prepared_list.append(row)
 
-    if i>=1:
+    if j>=1:
         df = pd.DataFrame(prepared_list)
         if not os.path.exists(outputPath):
             os.makedirs(outputPath)
 
-        writer = pd.ExcelWriter('./output/output.xlsx', engine='xlswriter')
+        writer = pd.ExcelWriter('./output/output.xlsx', engine='xlsxwriter')
         df.to_excel(writer,sheet_name='MergedTables', index=False,header=False)
-        writer.save()
+        writer.close()
         print("Process completed")
     else:
         print("No tables found")

@@ -12,6 +12,7 @@ for filename in os.listdir(path):
         url = path + '/' + filename
         files.append(url)
 
+# if file found
 if files:
     print(files)
     prepared_list = []

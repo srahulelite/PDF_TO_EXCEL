@@ -21,12 +21,14 @@ if files:
     j = 0
     for file in files:
         with pdfplumber.open(file) as f:
+            # looping with number of pages
             for page in f.pages:
                 i+=1
                 print("-- Working on page: ", i)
                 for table in page.extract_tables():
                     j+=1
                     #prepared_list.append(blank_row)
+                    #looping with number of tables
                     for row in table:
                         prepared_list.append(row)
 
